@@ -168,6 +168,10 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		Debug.Log ("Generating Walls");
 		
 		GenerateWalls();
+
+		Debug.Log ("Generating Doors");
+		
+		GenerateDoors();
 		
 		// Export texture
 		dungeonTexture = DungeonToTexture();
@@ -283,6 +287,19 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	}
 
 
+	// Generate doors when a tile is a corridor and a neighbor is a room
+	public void GenerateDoors() {
+		/*for (int y = 0; y < MAP_HEIGHT; y++) {
+			for (int x = 0; x < MAP_WIDTH; x++) {
+				Tile tile = tiles[j, i];
+				print (tile.id);
+
+				//if ()
+			}
+		}*/
+	}
+
+
 	// *************************************************************
 	// Read tilemap and instantiate GameObjects
 	// *************************************************************
@@ -318,7 +335,13 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
 		floor.transform.parent = container.transform;
 		floor.transform.localScale = new Vector3(1, Random.Range(0.1f, 0.3f), 1);
-		floor.transform.localPosition = new Vector3(col, floor.transform.lossyScale.y / 2, row);
+
+		float h = 0.01f;
+		int prob = Random.Range(1, 100);
+		if (prob <= 40) h += Random.Range(0f, 0.15f);
+
+		floor.transform.localScale = new Vector3(1, h, 1);
+		floor.transform.localPosition = new Vector3(col, h / 2, row);
 	}
 
 
@@ -329,14 +352,15 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		float h = 1.0f;
 		int prob = Random.Range(1, 100);
 		if (prob <= 40) h += Random.Range(0f, 0.3f);
-		if (prob <= 20) h += Random.Range(0f, 2.0f);
-		if (prob <= 2) h += Random.Range(0f, 2.0f);
+		if (prob <= 20) h += Random.Range(0f, 1.5f);
+		if (prob <= 2) h += Random.Range(0f, 1.0f);
 
-		wall.transform.localScale = new Vector3(1, h, 1);				
+		wall.transform.localScale = new Vector3(1, h, 1);
 		wall.transform.localPosition = new Vector3(wall.transform.position.x, h / 2, wall.transform.position.z);
 
-		wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
-		wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
+		// TODO: This gives us too many draw calls, need to figure a way to optimise it...
+		//wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
+		//wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
 	}
 
 	
