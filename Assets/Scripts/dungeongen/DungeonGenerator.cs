@@ -5,9 +5,11 @@ using System.IO;
 
 /*
 TODO:
-- walls on corners
-- multiple prefab types
+- walls on corners -> OK!
 - doors on room entrances
+
+- grid and mouse interaction
+- multiple prefab types
 - lights
 - visibility system
 - stairs and diferent height levels 
@@ -187,6 +189,11 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 //		GameObject.DestroyImmediate(floor);
 		
 	}
+
+
+	// *************************************************************
+	// Generate Dungeon Features
+	// *************************************************************
 	
 	// Generate the quadtree system
 	void GenerateQuadTree(ref QuadTree _quadTree)
@@ -276,8 +283,12 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 			}
 		}
 	}
-	
+
+
+	// *************************************************************
 	// Read tilemap and instantiate GameObjects
+	// *************************************************************
+	
 	void GenerateGameObjects(QuadTree _quadtree) {
 		// If it's an end quadtree, read every pos and make a chunk of combined meshes
 		if (_quadtree.HasChildren() == false) {
@@ -285,17 +296,18 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 			for (int row = _quadtree.boundary.BottomTile(); row <= _quadtree.boundary.TopTile()-1; row++) {
 				for (int col = _quadtree.boundary.LeftTile(); col <= _quadtree.boundary.RightTile()-1; col++) {
 					int id = tiles[row,col].id;
+					// floors
 					if (id == Tile.TILE_ROOM || id == Tile.TILE_CORRIDOR) {
-						GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
+						GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
 						floor.transform.parent = container.transform;
+						floor.transform.localScale = new Vector3(1, Random.Range(0.1f, 0.3f), 1);
+						floor.transform.localPosition = new Vector3(col, floor.transform.lossyScale.y / 2, row);
 					}
-					else if (id == Tile.TILE_WALL) {
-						GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
+					// walls
+					else if (id == Tile.TILE_WALL || id == Tile.TILE_WALLCORNER) {
+						GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
 						wall.transform.parent = container.transform;
-					}
-					else if (id == Tile.TILE_WALLCORNER) {
-						GameObject wall = GameObject.Instantiate(prefabWall02,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
-						wall.transform.parent = container.transform;
+						setWallRandomHeight(wall);
 					}
 				}
 			}
@@ -306,38 +318,28 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 			GenerateGameObjects(_quadtree.southWest);
 			GenerateGameObjects(_quadtree.southEast);
 		}
+	}
 
+
+	private void setWallRandomHeight (GameObject wall) {
+		float h = 1.0f;
+		int prob = Random.Range(1, 100);
+		if (prob < 40) h += Random.Range(0f, 0.3f);
+		if (prob < 20) h += Random.Range(0f, 2.0f);
+		if (prob < 3) h += Random.Range(0f, 8.0f);
+
+		wall.transform.localScale = new Vector3(1, h, 1);				
+		wall.transform.localPosition = new Vector3(wall.transform.position.x, h / 2, wall.transform.position.z);
+
+		wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
+		wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
 	}
+
 	
-	void PaintDungeonTexture(ref Texture2D t) {
-		for (int i = 0; i < MAP_WIDTH; i++) for (int j = 0; j < MAP_HEIGHT; j++) {
-			switch (tiles[j,i].id) {
-			case Tile.TILE_EMPTY:
-				t.SetPixel(i,j,Color.black);
-				break;
-			case Tile.TILE_ROOM:
-				t.SetPixel(i,j,Color.white);
-				break;
-			case Tile.TILE_CORRIDOR:
-				t.SetPixel(i,j,Color.grey);
-				break;
-			case Tile.TILE_WALL:
-				t.SetPixel(i,j,Color.blue);
-				break;
-			}
-		}
-	}
-	
-	Texture2D DungeonToTexture() {
-		Texture2D texOutput = new Texture2D((int) (MAP_WIDTH), (int) (MAP_HEIGHT),TextureFormat.ARGB32, false);
-		PaintDungeonTexture(ref texOutput);
-		texOutput.filterMode = FilterMode.Point;
-		texOutput.wrapMode = TextureWrapMode.Clamp;
-		texOutput.Apply();
-		return texOutput;
-	}
-	
+	// *************************************************************
 	// Helper Methods
+	// *************************************************************
+
 	public bool IsEmpty(int row, int col) { return tiles[row,col].id == Tile.TILE_EMPTY; }
 	
 	public bool IsPassable(int row, int col) { return tiles[row,col].id == Tile.TILE_ROOM || tiles[row,col].id == Tile.TILE_CORRIDOR; }
@@ -424,6 +426,39 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 			for (int row = row2; row < row2 + CORRIDOR_WIDTH; row++)
 				for (int col = col2; col <= col1; col++)
 					DigCorridor(row2,col);
+		}
+	}
+
+
+	// *************************************************************
+	// Paint textures for debug purposes
+	// *************************************************************
+
+	Texture2D DungeonToTexture() {
+		Texture2D texOutput = new Texture2D((int) (MAP_WIDTH), (int) (MAP_HEIGHT),TextureFormat.ARGB32, false);
+		PaintDungeonTexture(ref texOutput);
+		texOutput.filterMode = FilterMode.Point;
+		texOutput.wrapMode = TextureWrapMode.Clamp;
+		texOutput.Apply();
+		return texOutput;
+	}
+
+	void PaintDungeonTexture(ref Texture2D t) {
+		for (int i = 0; i < MAP_WIDTH; i++) for (int j = 0; j < MAP_HEIGHT; j++) {
+			switch (tiles[j,i].id) {
+			case Tile.TILE_EMPTY:
+				t.SetPixel(i,j,Color.black);
+				break;
+			case Tile.TILE_ROOM:
+				t.SetPixel(i,j,Color.white);
+				break;
+			case Tile.TILE_CORRIDOR:
+				t.SetPixel(i,j,Color.grey);
+				break;
+			case Tile.TILE_WALL:
+				t.SetPixel(i,j,Color.blue);
+				break;
+			}
 		}
 	}
 	
