@@ -7,7 +7,6 @@ using System.IO;
 TODO:
 - walls on corners -> OK!
 - doors on room entrances
-
 - grid and mouse interaction
 - multiple prefab types
 - lights
@@ -196,8 +195,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	// *************************************************************
 	
 	// Generate the quadtree system
-	void GenerateQuadTree(ref QuadTree _quadTree)
-	{
+	void GenerateQuadTree(ref QuadTree _quadTree) {
 		_quadTree.GenerateQuadTree(seed);
 	}
 	
@@ -298,16 +296,11 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 					int id = tiles[row,col].id;
 					// floors
 					if (id == Tile.TILE_ROOM || id == Tile.TILE_CORRIDOR) {
-						GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
-						floor.transform.parent = container.transform;
-						floor.transform.localScale = new Vector3(1, Random.Range(0.1f, 0.3f), 1);
-						floor.transform.localPosition = new Vector3(col, floor.transform.lossyScale.y / 2, row);
+						createFloor(container, row, col);
 					}
 					// walls
 					else if (id == Tile.TILE_WALL || id == Tile.TILE_WALLCORNER) {
-						GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
-						wall.transform.parent = container.transform;
-						setWallRandomHeight(wall);
+						createWall(container, row, col);
 					}
 				}
 			}
@@ -321,12 +314,23 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	}
 
 
-	private void setWallRandomHeight (GameObject wall) {
+	private void createFloor (GameObject container, float row, float col) {
+		GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
+		floor.transform.parent = container.transform;
+		floor.transform.localScale = new Vector3(1, Random.Range(0.1f, 0.3f), 1);
+		floor.transform.localPosition = new Vector3(col, floor.transform.lossyScale.y / 2, row);
+	}
+
+
+	private void createWall (GameObject container, float row, float col) {
+		GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
+		wall.transform.parent = container.transform;
+
 		float h = 1.0f;
 		int prob = Random.Range(1, 100);
-		if (prob < 40) h += Random.Range(0f, 0.3f);
-		if (prob < 20) h += Random.Range(0f, 2.0f);
-		if (prob < 3) h += Random.Range(0f, 8.0f);
+		if (prob <= 40) h += Random.Range(0f, 0.3f);
+		if (prob <= 20) h += Random.Range(0f, 2.0f);
+		if (prob <= 2) h += Random.Range(0f, 2.0f);
 
 		wall.transform.localScale = new Vector3(1, h, 1);				
 		wall.transform.localPosition = new Vector3(wall.transform.position.x, h / 2, wall.transform.position.z);
