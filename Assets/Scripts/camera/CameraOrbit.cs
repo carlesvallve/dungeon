@@ -14,7 +14,7 @@ public class CameraOrbit : MonoBehaviour {
 	public float distanceMax = 20;
 
 	public float yMin = -20;
-	public float yMax = 80;
+	public float yMax = 89;
 
 	public float xSpeed = 25;
 	public float ySpeed = 50;

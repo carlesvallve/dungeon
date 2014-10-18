@@ -3,6 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
+/*
+TODO:
+- walls on corners
+- multiple prefab types
+- doors on room entrances
+- lights
+- visibility system
+- stairs and diferent height levels 
+- start and end spots that lead to new levels
+*/
+
 // DungeonGenerator class. Singleton.
 public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	
@@ -14,13 +25,15 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	public int ROOM_MAX_SIZE = 24;
 	public int ROOM_MIN_SIZE = 4;
 	public int ROOM_WALL_BORDER = 1;
-	public bool ROOM_UGLY_ENABLED = true;
-	public float ROOM_MAX_RATIO = 5.0f;
+	public bool ROOM_UGLY_ENABLED = true; // used to eliminate ugly zones
+	public float ROOM_MAX_RATIO = 5.0f;   // used to eliminate ugly zones
 	
-	// Generation Parameters
+	// QuadTree Generation Parameters
 	public int MAX_DEPTH = 10;
 	public int CHANCE_STOP = 5;
 	public int SLICE_TRIES = 10;
+
+	// Corridor Generation Parameters
 	public int CORRIDOR_WIDTH = 2;
 	
 	// Tilemap
@@ -28,7 +41,8 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	
 	// Prefabs and Instance Management
 	public GameObject containerRooms;
-	public GameObject prefabWall01; 
+	public GameObject prefabWall01;
+	public GameObject prefabWall02;
 	public GameObject prefabFloor01;
 	public GameObject meshCombiner;
 	
@@ -242,8 +256,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	public void GenerateWalls() {
 		// Place walls
 		for (int i = 0; i < MAP_HEIGHT; i++) {
-			for (int j = 0; j < MAP_WIDTH; j++)
-			{
+			for (int j = 0; j < MAP_WIDTH; j++) {
 				bool room_near = false;
 				if (IsPassable(i,j)) continue;
 				if (i > 0) if (IsPassable(i-1,j)) room_near = true;
@@ -251,6 +264,15 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 				if (j > 0) if (IsPassable(i,j-1)) room_near = true;
 				if (j < MAP_WIDTH-1) if (IsPassable(i,j+1)) room_near = true;
 				if (room_near) SetWall(i,j);
+			}
+		}
+
+		// place wall corners
+		for (int i = 0; i < MAP_HEIGHT; i++) {
+			for (int j = 0; j < MAP_WIDTH; j++) {
+				bool room_near = false;
+				if (IsWallCorner(i,j)) room_near = true;
+				if (room_near) SetWallCorner(i,j);
 			}
 		}
 	}
@@ -269,6 +291,10 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 					}
 					else if (id == Tile.TILE_WALL) {
 						GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
+						wall.transform.parent = container.transform;
+					}
+					else if (id == Tile.TILE_WALLCORNER) {
+						GameObject wall = GameObject.Instantiate(prefabWall02,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
 						wall.transform.parent = container.transform;
 					}
 				}
@@ -303,7 +329,6 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	}
 	
 	Texture2D DungeonToTexture() {
-		return null;
 		Texture2D texOutput = new Texture2D((int) (MAP_WIDTH), (int) (MAP_HEIGHT),TextureFormat.ARGB32, false);
 		PaintDungeonTexture(ref texOutput);
 		texOutput.filterMode = FilterMode.Point;
@@ -318,9 +343,22 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	public bool IsPassable(int row, int col) { return tiles[row,col].id == Tile.TILE_ROOM || tiles[row,col].id == Tile.TILE_CORRIDOR; }
 	
 	public bool IsPassable(XY xy) { return IsPassable((int) xy.y, (int) xy.x);}
+
+	public bool IsWallCorner(int row, int col) { 
+		if (tiles[row, col].id != Tile.TILE_EMPTY) return false;
+		if (row > 0  && col > 0 && tiles[row - 1, col].id == Tile.TILE_WALL && tiles[row, col - 1].id == Tile.TILE_WALL && tiles[row - 1, col - 1].id != Tile.TILE_WALL) return true;
+		if (row > 0  && col < MAP_HEIGHT - 1 && tiles[row - 1, col].id == Tile.TILE_WALL && tiles[row, col + 1].id == Tile.TILE_WALL && tiles[row - 1, col + 1].id != Tile.TILE_WALL) return true;
+		if (row < MAP_HEIGHT - 1  && col > 0 && tiles[row + 1, col].id == Tile.TILE_WALL && tiles[row, col - 1].id == Tile.TILE_WALL && tiles[row + 1, col - 1].id != Tile.TILE_WALL) return true;
+		if (row < MAP_HEIGHT - 1  && col < MAP_HEIGHT - 1 && tiles[row + 1, col].id == Tile.TILE_WALL && tiles[row, col + 1].id == Tile.TILE_WALL && tiles[row + 1, col + 1].id != Tile.TILE_WALL) return true;
+		return false;
+	}
 	
 	public void SetWall(int row, int col) {
 		tiles[row,col].id = Tile.TILE_WALL;
+	}
+
+	public void SetWallCorner(int row, int col) {
+		tiles[row,col].id = Tile.TILE_WALLCORNER;
 	}
 
 	// Dig a room, placing floor tiles
@@ -391,8 +429,8 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	
 	// Export a texture to a file
 	public void TextureToFile(Texture2D t, string filename) {
-		return;
-		
+		return; // remove this in case we want to export textures to illustreate our process
+
 		byte[] bytes = t.EncodeToPNG();
 		FileStream myFile = new FileStream(Application.dataPath + "/Resources/Generated/" + filename + ".png",FileMode.OpenOrCreate,System.IO.FileAccess.ReadWrite);
 		myFile.Write(bytes,0,bytes.Length);
