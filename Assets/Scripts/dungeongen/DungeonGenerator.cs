@@ -52,9 +52,6 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	public GameObject prefabFloor01;
 	public GameObject meshCombiner;
 	
-	// Player	
-	//public GameObject player;
-	
 	// The Random Seed
 	public int seed = -1;
 	
@@ -66,6 +63,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	
 	// Auxiliar vars
 //	private GameObject floor;
+	private bool debugToTexture = false; // in case we want to export textures to illustreate our process
 	private Texture2D dungeonTexture;
 	
 	// On Awake
@@ -454,6 +452,8 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	// *************************************************************
 
 	Texture2D DungeonToTexture() {
+		if (!debugToTexture) return null;
+
 		Texture2D texOutput = new Texture2D((int) (MAP_WIDTH), (int) (MAP_HEIGHT),TextureFormat.ARGB32, false);
 		PaintDungeonTexture(ref texOutput);
 		texOutput.filterMode = FilterMode.Point;
@@ -463,6 +463,8 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	}
 
 	void PaintDungeonTexture(ref Texture2D t) {
+		if (!debugToTexture) return;
+
 		for (int i = 0; i < MAP_WIDTH; i++) for (int j = 0; j < MAP_HEIGHT; j++) {
 			switch (tiles[j,i].id) {
 			case Tile.TILE_EMPTY:
@@ -483,7 +485,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	
 	// Export a texture to a file
 	public void TextureToFile(Texture2D t, string filename) {
-		return; // remove this in case we want to export textures to illustreate our process
+		if (!debugToTexture) return;
 
 		byte[] bytes = t.EncodeToPNG();
 		FileStream myFile = new FileStream(Application.dataPath + "/Resources/Generated/" + filename + ".png",FileMode.OpenOrCreate,System.IO.FileAccess.ReadWrite);

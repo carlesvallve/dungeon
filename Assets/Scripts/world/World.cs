@@ -54,10 +54,8 @@ public class World : MonoBehaviour {
         // set walkability map
         for (int y = 0; y < Grid.ysize; y++) {
 			for (int x = 0; x < Grid.xsize; x++) {
-				Cell cell = Grid.arr[x, y];
-				Tile tile = dungeon.tiles[x, y];
-
 				// set rooms and corridor cells to walkable
+				Tile tile = dungeon.tiles[x, y];
 				if (tile.id == Tile.TILE_ROOM || tile.id == Tile.TILE_CORRIDOR) {
 					Grid.setWalkable(y, x, true);
 				} else {
