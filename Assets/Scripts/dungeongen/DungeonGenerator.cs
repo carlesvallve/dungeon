@@ -6,11 +6,16 @@ using System.IO;
 /*
 TODO:
 - walls on corners -> OK!
+- light on avatar -> OK!
+- grid and mouse interaction -> OK
+- astar pathfinding -> OK
+
 - doors on room entrances
-- grid and mouse interaction
+
 - multiple prefab types
-- lights
-- visibility system
+- FOV visibility system
+- lights on rooms
+
 - stairs and diferent height levels 
 - start and end spots that lead to new levels
 */

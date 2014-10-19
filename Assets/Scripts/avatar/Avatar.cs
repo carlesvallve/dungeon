@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour {
+public class Avatar : MonoBehaviour {
 
 	private float speed = 8.0f;
 	private bool moving = false;

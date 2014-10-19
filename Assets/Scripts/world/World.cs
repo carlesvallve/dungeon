@@ -9,7 +9,7 @@ public class World : MonoBehaviour {
 
 	public CameraOrbit cam;
 	public DungeonGenerator dungeon;
-	public Player player;
+	public Avatar player;
 
 
 	void Start () {
@@ -68,7 +68,7 @@ public class World : MonoBehaviour {
 	}
 
 
-	private Player createPlayer (Vector3 pos) {
+	private Avatar createPlayer (Vector3 pos) {
 		// if we already have a player, just locate it at starting position
 		if (player) {
 			player.locateAtPos(pos);
@@ -76,11 +76,11 @@ public class World : MonoBehaviour {
 		}
 
 		// create player 
-		GameObject obj = (GameObject)Instantiate(Resources.Load("player/Player"), Vector3.zero, Quaternion.identity);
+		GameObject obj = (GameObject)Instantiate(Resources.Load("avatar/Avatar"), Vector3.zero, Quaternion.identity);
 		obj.transform.parent = transform;
 		cam.target = obj.transform;
 
-		Player newPlayer = obj.GetComponent<Player>();
+		Avatar newPlayer = obj.GetComponent<Avatar>();
 		newPlayer.init(pos);
 
 		return newPlayer;
