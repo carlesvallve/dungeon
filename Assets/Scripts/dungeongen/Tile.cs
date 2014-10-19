@@ -17,6 +17,8 @@ public class Tile {
 	public const int TILE_WALLCORNER = 4;
 
 	public const int TILE_DOOR = 5;
+
+	public GameObject obj;
 	
 	// Tile ID
 	public int id;

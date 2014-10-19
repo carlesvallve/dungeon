@@ -48,7 +48,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	public GameObject meshCombiner;
 	
 	// Player	
-	public GameObject player;
+	//public GameObject player;
 	
 	// The Random Seed
 	public int seed = -1;
@@ -79,36 +79,11 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		
 	}
 	
-	// On Start
-	void Start () {
-
-	}
-	
-	// Each frame
-	void Update () {
-		// Generate a new Test Dungeon
-		if (Input.GetButtonDown("Jump")) {
-			// Generate a new Seed
-			seed = System.DateTime.Now.Millisecond*1000 + System.DateTime.Now.Minute*100;
-			
-			// Camera on middle and looking down
-			//Camera.mainCamera.transform.position = new Vector3(MAP_WIDTH/2,100,MAP_HEIGHT/2);
-			
-			// Set the randome seed
-			Random.seed = seed;
-			
-			// Generate Dungeon
-			Debug.Log ("Dungeon Generation Started");
-			
-			GenerateDungeon(seed);
-			
-		}
-	}
 	
 	// Clean everything
 	public void ResetDungeon() {
 		// Disable player
-		player.SetActive(false);
+		//player.SetActive(false);
 		
 		// Reset tilemap
 		for (int i = 0; i < MAP_HEIGHT; i++) 
@@ -123,6 +98,9 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		
 		// Destroy tile GameObjects
 		foreach (Transform t in containerRooms.transform) GameObject.Destroy(t.gameObject);
+
+		// Destroy Player
+		//GameObject.Destroy(Player);
 	}
 	
 	// Generate a new dungeon with the given seed
@@ -183,11 +161,13 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		// Instantiate prefabs
 		GenerateGameObjects(quadTree);
 			
+		// Create Player
+
 		// Place Player
-		int r = Random.Range(0,rooms.Count-1);
+		/*int r = Random.Range(0,rooms.Count-1);
 		Room room = rooms[r];
 		player.SetActive(true);
-		player.transform.position = new Vector3(room.boundary.center.x,1.0f,room.boundary.center.y);
+		player.transform.position = new Vector3(room.boundary.center.x,1.0f,room.boundary.center.y);*/
 		
 //		GameObject.DestroyImmediate(floor);
 		
@@ -313,11 +293,13 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 					int id = tiles[row,col].id;
 					// floors
 					if (id == Tile.TILE_ROOM || id == Tile.TILE_CORRIDOR) {
-						createFloor(container, row, col);
+						GameObject floor = createFloor(container, row, col);
+						tiles[row,col].obj = floor; // record gameobject in tile
 					}
 					// walls
 					else if (id == Tile.TILE_WALL || id == Tile.TILE_WALLCORNER) {
-						createWall(container, row, col);
+						GameObject wall = createWall(container, row, col);
+						tiles[row,col].obj = wall; // record gameobject in tile
 					}
 				}
 			}
@@ -331,7 +313,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 	}
 
 
-	private void createFloor (GameObject container, float row, float col) {
+	private GameObject createFloor (GameObject container, float row, float col) {
 		GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
 		floor.transform.parent = container.transform;
 		floor.transform.localScale = new Vector3(1, Random.Range(0.1f, 0.3f), 1);
@@ -342,10 +324,12 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 
 		floor.transform.localScale = new Vector3(1, h, 1);
 		floor.transform.localPosition = new Vector3(col, h / 2, row);
+
+		return floor;
 	}
 
 
-	private void createWall (GameObject container, float row, float col) {
+	private GameObject createWall (GameObject container, float row, float col) {
 		GameObject wall = GameObject.Instantiate(prefabWall01,new Vector3(col, 0.0f, row),Quaternion.identity) as GameObject;
 		wall.transform.parent = container.transform;
 
@@ -361,6 +345,8 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		// TODO: This gives us too many draw calls, need to figure a way to optimise it...
 		//wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
 		//wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
+	
+		return wall;
 	}
 
 	

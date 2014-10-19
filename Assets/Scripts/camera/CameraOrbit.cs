@@ -52,10 +52,8 @@ public class CameraOrbit : MonoBehaviour {
 		if(!scriptFade) {
 			print("CameraFade script is required in order to fade the scene!");
 			return;
-		}*/
-
-		
-		//StartCoroutine(FadeIn(Color.white, 1.5f, 1.0f));
+		}
+		//StartCoroutine(FadeIn(Color.white, 1.5f, 1.0f));*/
 	}
 
 
@@ -96,6 +94,8 @@ public class CameraOrbit : MonoBehaviour {
 
 
 	void LateUpdate () {
+		if (!target) return;
+		
 		// manage interactive control input
 		setInputControls();
 
