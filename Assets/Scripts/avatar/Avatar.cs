@@ -4,14 +4,37 @@ using System.Collections.Generic;
 
 public class Avatar : MonoBehaviour {
 
+	private CameraOrbit cam;
+
+	private Transform torch;
+	private Transform figure;
+	private Transform image;
+	private SpriteRenderer spriteRenderer;
+	private Object[] spriteTypes;
+
 	private float speed = 8.0f;
 	private bool moving = false;
 	
 	private List<Vector2> path = new List<Vector2>();
 	private Vector3 targetPos;
+
+
+	public void Awake () {
+		cam = Camera.main.GetComponent<CameraOrbit>();
+	}
 	
 
-	public void init (Vector3 pos) {
+	public void init (Vector3 pos, bool useTorch) {
+		figure = transform.Find("Figure");
+		image = figure.Find("Sprite");
+
+		spriteTypes = Resources.LoadAll("avatar/Textures/beings", typeof(Sprite));
+		spriteRenderer = image.GetComponent<SpriteRenderer>();
+		spriteRenderer.sprite = (Sprite)spriteTypes[Random.Range(0, spriteTypes.Length - 1)];
+
+		torch = figure.Find("Torch");
+		torch.gameObject.SetActive(useTorch);
+
 		locateAtPos(pos);
 	}
 	
@@ -21,6 +44,20 @@ public class Avatar : MonoBehaviour {
 			move();
 			snapToGround();
 		}		
+	}
+
+
+	void LateUpdate () {
+		turnTowardsCamera();
+	}
+
+
+	private void turnTowardsCamera () {
+		//Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
+		
+		Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
+		figure.LookAt(pos, Vector3.up);
+		figure.Rotate(0, 180, 0);
 	}
 
 

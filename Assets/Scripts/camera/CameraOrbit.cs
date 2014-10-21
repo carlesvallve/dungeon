@@ -93,7 +93,7 @@ public class CameraOrbit : MonoBehaviour {
 	}
 
 
-	void LateUpdate () {
+	void Update () {
 		if (!target) return;
 		
 		// manage interactive control input

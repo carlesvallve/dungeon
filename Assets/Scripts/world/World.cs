@@ -10,6 +10,7 @@ public class World : MonoBehaviour {
 	public CameraOrbit cam;
 	public DungeonGenerator dungeon;
 	public Avatar player;
+	public List<Avatar> monsters;
 
 
 	void Start () {
@@ -43,6 +44,9 @@ public class World : MonoBehaviour {
 			Room room = dungeon.rooms[Random.Range(0, dungeon.rooms.Count - 1)];
 			Vector3 pos = new Vector3(Mathf.Round(room.boundary.center.x), 0, Mathf.Round(room.boundary.center.y));
 			player = createPlayer(pos);
+
+			// create some monsters
+			monsters = createMonsters(80);
 	}
 
 
@@ -73,15 +77,42 @@ public class World : MonoBehaviour {
 			return player;
 		}
 
-		// create player 
-		GameObject obj = (GameObject)Instantiate(Resources.Load("avatar/Avatar"), Vector3.zero, Quaternion.identity);
-		obj.transform.parent = transform;
-		cam.target = obj.transform;
-
-		Avatar newPlayer = obj.GetComponent<Avatar>();
-		newPlayer.init(pos);
+		Avatar newPlayer = createAvatar(pos, true);
+		cam.target = newPlayer.transform;
 
 		return newPlayer;
+	}
+
+
+	private List<Avatar> createMonsters (int max) {
+		List<Avatar> monster = new List<Avatar>();
+
+		for (var i = 0; i < max; i++) {
+			Room room = dungeon.rooms[Random.Range(0, dungeon.rooms.Count - 1)];
+			//Vector3 pos = new Vector3(Mathf.Round(room.boundary.center.x), 0, Mathf.Round(room.boundary.center.y));
+
+			Vector3 pos = new Vector3(
+				Mathf.Round(Random.Range(room.boundary.Left() + 1, room.boundary.Right() - 1)),
+				0,
+				Mathf.Round(Random.Range(room.boundary.Top() + 1, room.boundary.Bottom() - 1))
+			);
+
+			monsters.Add(createAvatar(pos, false));
+		}
+
+		return monsters;
+	}
+
+
+	private Avatar createAvatar (Vector3 pos, bool useTorch) {
+		// create avatar 
+		GameObject obj = (GameObject)Instantiate(Resources.Load("avatar/Prefabs/Avatar"), Vector3.zero, Quaternion.identity);
+		obj.transform.parent = transform;
+
+		Avatar avatar = obj.GetComponent<Avatar>();
+		avatar.init(pos, useTorch);
+
+		return avatar;
 	}
 
 

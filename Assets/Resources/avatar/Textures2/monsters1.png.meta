@@ -1,0 +1,796 @@
+fileFormatVersion: 2
+guid: c05d65a521ed94100833f1ee1f577eca
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 16
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: monsters1_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 608
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_1
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 610
+        width: 72
+        height: 70
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_2
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 607
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_3
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 608
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_4
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 607
+        width: 66
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_5
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 607
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_6
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 608
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_7
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 608
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_8
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 522
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_9
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 522
+        width: 70
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_10
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 522
+        width: 72
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_11
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 521
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_12
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 521
+        width: 62
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_13
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 522
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_14
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 523
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_15
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 524
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_16
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 525
+        width: 74
+        height: 70
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_17
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 435
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_18
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 438
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_19
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 438
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_20
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 442
+        width: 68
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_21
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 442
+        width: 54
+        height: 65
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_22
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 437
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_23
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 436
+        width: 50
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_24
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 437
+        width: 64
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_25
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 436
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_26
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 350
+        width: 72
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_27
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 350
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_28
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 350
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_29
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 351
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_30
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 350
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_31
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 349
+        width: 70
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_32
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 351
+        width: 56
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_33
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 351
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_34
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 353
+        width: 70
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_35
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 349
+        width: 75
+        height: 75
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_36
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 265
+        width: 64
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_37
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 266
+        width: 70
+        height: 70
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_38
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 266
+        width: 70
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_39
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 267
+        width: 70
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_40
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 265
+        width: 70
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_41
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 264
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_42
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 269
+        width: 70
+        height: 66
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_43
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 270
+        width: 70
+        height: 68
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_44
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 265
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_45
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 266
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_46
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 180
+        width: 66
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_47
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 177
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_48
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 177
+        width: 72
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_49
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 177
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_50
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 177
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_51
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 178
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_52
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 182
+        width: 68
+        height: 68
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_53
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 178
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_54
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 180
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_55
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 92
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_56
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 95
+        width: 60
+        height: 70
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_57
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 95
+        width: 74
+        height: 70
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_58
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 93
+        width: 74
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_59
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 92
+        width: 58
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_60
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 93
+        width: 68
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_61
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 94
+        width: 68
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_62
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 93
+        width: 68
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_63
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 95
+        width: 72
+        height: 68
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_64
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 93
+        width: 68
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_65
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 5
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_66
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 9
+        width: 72
+        height: 68
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_67
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 6
+        width: 72
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_68
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 7
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_69
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 5
+        width: 78
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_70
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 7
+        width: 64
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_71
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 7
+        width: 68
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_72
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 5
+        width: 74
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_73
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 5
+        width: 72
+        height: 74
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monsters1_74
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 7
+        width: 62
+        height: 72
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
