@@ -10,7 +10,7 @@ public class Avatar : MonoBehaviour {
 	private Light torch;
 	private Transform figure;
 	private Transform image;
-	private SpriteRenderer spriteRenderer;
+	public SpriteRenderer spriteRenderer;
 	private Object[] spriteTypes;
 
 	private float speed = 8.0f;
@@ -36,7 +36,10 @@ public class Avatar : MonoBehaviour {
 		spriteRenderer.sprite = (Sprite)spriteTypes[Random.Range(0, spriteTypes.Length - 1)];
 
 		torch = figure.Find("Torch").GetComponent<Light>();
-		torch.intensity = useTorch ? 2.5f : 0.5f;
+		/*torch.intensity = useTorch ? 2.5f : 0.5f;
+		torch.gameObject.SetActive(useTorch);*/
+
+		//torch.gameObject.SetActive(false);
 		torch.gameObject.SetActive(useTorch);
 
 		locateAtPos(pos);
@@ -57,8 +60,6 @@ public class Avatar : MonoBehaviour {
 
 
 	private void turnTowardsCamera () {
-		//Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
-
 		Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
 		figure.LookAt(pos, Vector3.up);
 		figure.Rotate(0, 180, 0);

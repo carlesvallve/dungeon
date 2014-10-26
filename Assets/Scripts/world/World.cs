@@ -85,7 +85,7 @@ public class World : MonoBehaviour {
 
 
 	private List<Avatar> createMonsters (int max) {
-		List<Avatar> monster = new List<Avatar>();
+		List<Avatar> monsters = new List<Avatar>();
 
 		for (var i = 0; i < max; i++) {
 			Room room = dungeon.rooms[Random.Range(0, dungeon.rooms.Count - 1)];
@@ -120,6 +120,9 @@ public class World : MonoBehaviour {
 	// *****************************************************
 
 	public void setVisibility (float posX, float posY, int radius) {
+		float litTone = 1.0f;
+		float unlitTone = 0.075f;
+
 		bool[,] lit = new bool[Grid.xsize, Grid.ysize];
 
 		ShadowCaster.ComputeFieldOfViewWithShadowCasting(
@@ -131,14 +134,35 @@ public class World : MonoBehaviour {
 		for (int y = 0; y < dungeon.MAP_HEIGHT; y++) {
 			for (int x = 0; x < dungeon.MAP_WIDTH; x++) {
 				Tile tile = dungeon.tiles[x, y];
+
 				if (tile.obj) {
 					if (lit[y, x]) {
-						tile.obj.renderer.material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f); //SetActive(lit[x, y]);
+						float dist = (new Vector2(y, x) - new Vector2(posX, posY)).magnitude;
+						float tone = litTone - (litTone / (radius + 1)) * dist;
+						//float tone = Mathf.Max(litTone - (litTone / (radius - 1)) * dist, 0.1f);
+						//print (dist + " " + tone);
+						tile.obj.renderer.material.color = new Color(tone, tone, tone, 0.5f); //SetActive(lit[x, y]);
+						tile.obj.SetActive(true);
 					} else {
-						tile.obj.renderer.material.color = new Color(0.05f, 0.05f, 0.05f, 0.5f); //SetActive(lit[x, y]);
+						tile.obj.renderer.material.color = new Color(unlitTone, unlitTone, unlitTone, 0.5f); //SetActive(lit[x, y]);
+						tile.obj.SetActive(false);
 					}
 				}
 			}
+		}
+
+		for (var i = 0; i < monsters.Count; i++) {
+			Avatar monster = monsters[i];
+			int x = (int)monster.transform.position.x;
+			int y = (int)monster.transform.position.z;
+
+			float dist = (new Vector2(x, y) - new Vector2(posX, posY)).magnitude;
+			float tone = litTone - (litTone / (radius + 1)) * dist;
+			//float tone = Mathf.Max(litTone - (litTone / (radius - 1)) * dist, 0.1f);
+			//print (dist + " " + tone);
+			monster.spriteRenderer.color = new Color(tone, tone, tone, 1f); //SetActive(lit[x, y]);
+			//monster.spriteRenderer.color = new Color(1, 1, 1, 1f); //SetActive(lit[x, y]);
+			monster.gameObject.SetActive(lit[x, y]);
 		}
 	}
 

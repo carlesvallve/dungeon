@@ -342,8 +342,9 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 		wall.transform.localPosition = new Vector3(wall.transform.position.x, h / 2, wall.transform.position.z);
 
 		// TODO: This gives us too many draw calls, need to figure a way to optimise it...
-		//wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
-		//wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / 3.0f, wall.transform.lossyScale.y / 3.0f));
+		float div = 4.0f;
+		wall.renderer.material.SetTextureScale("_MainTex", new Vector2(wall.transform.lossyScale.x / div, wall.transform.lossyScale.y / div));
+		wall.renderer.material.SetTextureScale("_BumpMap", new Vector2(wall.transform.lossyScale.x / div, wall.transform.lossyScale.y / div));
 
 		return wall;
 	}

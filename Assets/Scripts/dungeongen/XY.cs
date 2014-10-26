@@ -11,46 +11,46 @@ public class XY {
 	public float x;
 	public float y;
 
-	
-	// Constructors	
 
-	public XY () : this (0, 0) { 
-	
+	// Constructors
+
+	public XY () : this (0, 0) {
+
 	}
 
-	
+
 	public XY (float _x, float _y) {
 		x = _x;
 		y = _y;
 	}
-	
+
 	// Helper Methods
 
 	public static XY operator+(XY a, XY b) {
 		return new XY(a.x+b.x, a.y+b.y);
 	}
 
-	
+
 	public static XY operator-(XY a, XY b) {
 		return new XY(a.x-b.x, a.y-b.y);
 	}
 
-	
+
 	public static XY operator/(XY a, float b) {
 		return new XY(a.x/b, a.y/b);
 	}
 
-	
+
 	public static XY operator*(XY a, float b) {
 		return new XY(a.x*b, a.y*b);
 	}
 
-	
+
 	public static XY Round(XY xy) {
-		return new XY(Mathf.RoundToInt(xy.x), Mathf.RoundToInt(xy.y));	
+		return new XY(Mathf.RoundToInt(xy.x), Mathf.RoundToInt(xy.y));
 	}
 
-	
+
 	public static float Distance(XY a, XY b) {
 		float _x = b.x - a.x;
 		float _y = b.y - a.y;
