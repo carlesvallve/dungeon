@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class Avatar : MonoBehaviour {
 
 	private CameraOrbit cam;
+	private World world;
 
-	private Transform torch;
+	private Light torch;
 	private Transform figure;
 	private Transform image;
 	private SpriteRenderer spriteRenderer;
@@ -14,7 +15,7 @@ public class Avatar : MonoBehaviour {
 
 	private float speed = 8.0f;
 	private bool moving = false;
-	
+
 	private List<Vector2> path = new List<Vector2>();
 	private Vector3 targetPos;
 
@@ -22,9 +23,11 @@ public class Avatar : MonoBehaviour {
 	public void Awake () {
 		cam = Camera.main.GetComponent<CameraOrbit>();
 	}
-	
 
-	public void init (Vector3 pos, bool useTorch) {
+
+	public void init (World world, Vector3 pos, bool useTorch) {
+		this.world = world;
+
 		figure = transform.Find("Figure");
 		image = figure.Find("Sprite");
 
@@ -32,18 +35,19 @@ public class Avatar : MonoBehaviour {
 		spriteRenderer = image.GetComponent<SpriteRenderer>();
 		spriteRenderer.sprite = (Sprite)spriteTypes[Random.Range(0, spriteTypes.Length - 1)];
 
-		torch = figure.Find("Torch");
-		torch.gameObject.SetActive(useTorch);
+		torch = figure.Find("Torch").GetComponent<Light>();
+		torch.intensity = useTorch ? 3.5f : 1.0f;
+		//torch.gameObject.SetActive(useTorch);
 
 		locateAtPos(pos);
 	}
-	
+
 
 	void Update () {
 		if (moving) {
 			move();
 			snapToGround();
-		}		
+		}
 	}
 
 
@@ -54,7 +58,7 @@ public class Avatar : MonoBehaviour {
 
 	private void turnTowardsCamera () {
 		//Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
-		
+
 		Vector3 pos = new Vector3(cam.transform.position.x, image.localPosition.y, cam.transform.position.z);
 		figure.LookAt(pos, Vector3.up);
 		figure.Rotate(0, 180, 0);
@@ -72,7 +76,7 @@ public class Avatar : MonoBehaviour {
 	public void moveTo (Vector3 pos) {
 		// get path from player to pos
 		path = Grid.astar.SearchPath(
-			(int)transform.position.x, (int)transform.position.z, 
+			(int)transform.position.x, (int)transform.position.z,
 			(int)pos.x, (int)pos.z
 		);
 
@@ -88,18 +92,26 @@ public class Avatar : MonoBehaviour {
 
 
 	public void moveStep () {
+		// set visibility
+		world.setVisibility(transform.position.x, transform.position.z, 5);
+
     	// remove current path node
     	path.RemoveAt(0);
-    	
+
     	// if there is no path left, end moving
 		if (path.Count == 0) {
-			moving = false;
+			moveEnd();
     		return;
     	}
 
 		// move to position at current path node
 		targetPos = new Vector3 (path[0].x, 0, path[0].y);
 		moving = true;
+	}
+
+
+	public void moveEnd (){
+		moving = false;
 	}
 
 

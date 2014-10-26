@@ -29,13 +29,13 @@ public class Cell {
         //msg +="NW:" + NW + " NE:" + NE + " SW:" + SW + " SE:" + SE;
         Debug.Log(msg);
     }
-	
-	
+
+
 	public bool getWalkable () {
 		return this.walkable;
 	}
-	
-	
+
+
 	public void setWalkable (bool walkable) {
 		this.walkable = walkable;
 	}
@@ -66,12 +66,12 @@ public class Grid : MonoBehaviour {
         astar = new Astar(arr);
     }
 
-	
+
 	public static Cell getCell(int x, int y) {
 		return arr[x, y];
 	}
-	
-	
+
+
 	public static string getCellType(int x, int y) { //, bool occupied
 		Cell cell = getCell (x, y);
         return cell.type;
@@ -80,11 +80,12 @@ public class Grid : MonoBehaviour {
 		Cell cell = getCell (x, y);
         cell.type = type;
     }
-	
-	
+
+
 	public static bool getWalkable(float px, float py) { //, bool occupied
 		return arr[(int)px, (int)py].walkable;
 	}
+
 
     public static void setWalkable(float px, float py, bool walkable) { //, bool occupied
         int x = (int)px;
@@ -93,7 +94,7 @@ public class Grid : MonoBehaviour {
         if (arr[x, y].walkable) { astar.walkability[x, y] = 0; } else { astar.walkability[x, y] = 1; }
 		//setOccupied (px, py, true);
     }
-	
+
 	public static bool getOccupied(float px, float py) { //, bool occupied
 		return arr[(int)px, (int)py].occupied;
 	}
@@ -121,7 +122,7 @@ public class Grid : MonoBehaviour {
 ;===================================================================
 ;Last updated 06/16/03 -- Visual C++ version
 ;Edited by Ramen Sama for use in Torque 5.13.06about to
-;Edited by Carles Vallve, 
+;Edited by Carles Vallve,
  * changed to c# for use in Unity3d
  * many issues where removed/simplified for more transparent-easy use.
 */
@@ -136,7 +137,7 @@ public class Astar {
     //Create needed arrays
     public int[,] walkability;
     int[] openList;     //1 dimensional array holding ID# of open list items
-    int[,] whichList;   //2 dimensional array used to record 
+    int[,] whichList;   //2 dimensional array used to record
     //whether a cell is on the open list or on the closed list.
     int[] openX, openY;    //1d arrays stores the x and y locations of an item on the open list
     int[,] parentX, parentY; //2d arrays to store parent of each cell (x and y)
@@ -146,10 +147,10 @@ public class Astar {
     int[] Hcost;	//1d array to store H cost of a cell on the open list
     //Path in int-array format
     int[] mypath;
-    int pathLength = notStarted; //stores length of the found path for critter	
+    int pathLength = notStarted; //stores length of the found path for critter
 
     //-----------------------------------------------------------------------------
-    // Name: AstarLibrary 
+    // Name: AstarLibrary
     // Desc: Initializes/Redimensionates all required vars and generates walkability map.
     //-----------------------------------------------------------------------------
 
@@ -159,7 +160,7 @@ public class Astar {
         mapHeight = arr.Length / arr.GetLength(0);
         //Redimensionate needed arrays
         openList = new int[mapWidth * mapHeight + 2]; //1 dimensional array holding ID# of open list items
-        whichList = new int[mapWidth + 1, mapHeight + 1];  //2 dimensional array used to record 
+        whichList = new int[mapWidth + 1, mapHeight + 1];  //2 dimensional array used to record
         //whether a cell is on the open list or on the closed list.
         openX = new int[mapWidth * mapHeight + 2]; //1d array stores the x location of an item on the open list
         openY = new int[mapWidth * mapHeight + 2]; //1d array stores the y location of an item on the open list
@@ -167,7 +168,7 @@ public class Astar {
         parentY = new int[mapWidth + 1, mapHeight + 1]; //2d array to store parent of each cell (y)
         Fcost = new int[mapWidth * mapHeight + 2];	//1d array to store F cost of a cell on the open list
         Gcost = new int[mapWidth + 1, mapHeight + 1]; 	//2d array to store G cost for each cell.
-        Hcost = new int[mapWidth * mapHeight + 2];	//1d array to store H cost of a cell on the open list	
+        Hcost = new int[mapWidth * mapHeight + 2];	//1d array to store H cost of a cell on the open list
         //walkability array: is a bidimensional int-array of ones and zeros that we generate from cells walkable states.
         walkability = new int[mapWidth, mapHeight];
         for (int y = 0; y < mapHeight; y++) {
@@ -260,7 +261,7 @@ public class Astar {
                 //  is maintained as a binary heap. For more information on binary heaps, see:
                 //	http://www.policyalmanac.org/games/binaryHeaps.htm
 
-                numberOfOpenListItems = numberOfOpenListItems - 1;//reduce number of open list items by 1	
+                numberOfOpenListItems = numberOfOpenListItems - 1;//reduce number of open list items by 1
 
                 //	Delete the top item in binary heap and reorder the heap, with the lowest F cost item rising to the top.
                 openList[1] = openList[numberOfOpenListItems + 1];//move the last item in the heap up to slot #1
@@ -279,7 +280,7 @@ public class Astar {
                     }
                     else {
                         if (2 * u <= numberOfOpenListItems) { //if only child #1 exists
-                            //Check if the F cost of the parent is greater than child #1	
+                            //Check if the F cost of the parent is greater than child #1
                             if (Fcost[openList[u]] >= Fcost[openList[2 * u]]) { v = 2 * u; }
                         }
                     }
@@ -307,7 +308,7 @@ public class Astar {
                         if (a != -1 && b != -1 && a != mapWidth && b != mapHeight) {
 
                             //If not already on the closed list (items on the closed list have
-                            //already been considered and can now be ignored).			
+                            //already been considered and can now be ignored).
                             if (whichList[a, b] != onClosedList) {
 
                                 //If not a wall/obstacle square. //yield return WaitForSeconds(0.1);
@@ -348,7 +349,7 @@ public class Astar {
 
                                     if (corner == walkable) {
 
-                                        //If not already on the open list, add it to the open list.			
+                                        //If not already on the open list, add it to the open list.
                                         if (whichList[a, b] != onOpenList) {
 
                                             //Create a new open list item in the binary heap.
@@ -360,9 +361,9 @@ public class Astar {
 
                                             //Figure out its G cost
                                             if (Mathf.Abs(a - parentXval) == 1 && Mathf.Abs(b - parentYval) == 1)
-                                                addedGCost = 14;//cost of going to diagonal squares	
+                                                addedGCost = 14;//cost of going to diagonal squares
                                             else
-                                                addedGCost = 10;//cost of going to non-diagonal squares				
+                                                addedGCost = 10;//cost of going to non-diagonal squares
                                             Gcost[a, b] = Gcost[parentXval, parentYval] + addedGCost;
 
                                             //Determine the direction of travel from the previous square to this one
@@ -379,9 +380,9 @@ public class Astar {
                                             //Starting at the bottom, successively compare to parent items,
                                             //swapping as needed until the item finds its place in the heap
                                             //or bubbles all the way to the top (if it has the lowest F cost).
-                                            while (m != 1) //While item hasn't bubbled to the top (m=1)	
+                                            while (m != 1) //While item hasn't bubbled to the top (m=1)
 		{
-                                                //Check if child's F cost is < parent's F cost. If so, swap them.	
+                                                //Check if child's F cost is < parent's F cost. If so, swap them.
                                                 if (Fcost[openList[m]] <= Fcost[openList[m / 2]]) {
                                                     temp = openList[m / 2];
                                                     openList[m / 2] = openList[m];
@@ -399,26 +400,26 @@ public class Astar {
 
 
 
-                                        //8.If adjacent cell is already on the open list, check to see if this 
-                                        //	path to that cell from the starting location is a better one. 
-                                        //	If so, change the parent of the cell and its G and F costs.	
+                                        //8.If adjacent cell is already on the open list, check to see if this
+                                        //	path to that cell from the starting location is a better one.
+                                        //	If so, change the parent of the cell and its G and F costs.
                                         else //If whichList(a,b) = onOpenList
 	{
 
                                             //Figure out the G cost of this possible new path
                                             if (Mathf.Abs(a - parentXval) == 1 && Mathf.Abs(b - parentYval) == 1)
-                                                addedGCost = 14;//cost of going to diagonal tiles	
+                                                addedGCost = 14;//cost of going to diagonal tiles
                                             else
-                                                addedGCost = 10;//cost of going to non-diagonal tiles				
+                                                addedGCost = 10;//cost of going to non-diagonal tiles
                                             tempGcost = Gcost[parentXval, parentYval] + addedGCost;
 
                                             //If this path is shorter (G cost is lower) then change
-                                            //the parent cell, G cost and F cost. 		
+                                            //the parent cell, G cost and F cost.
                                             if (tempGcost < Gcost[a, b]) //if G cost is less,
 		{
                                                 parentX[a, b] = parentXval; //change the square's parent
                                                 parentY[a, b] = parentYval;
-                                                Gcost[a, b] = tempGcost;//change the G cost			
+                                                Gcost[a, b] = tempGcost;//change the G cost
 
                                                 //Because changing the G cost also changes the F cost, if
                                                 //the item is on the open list we need to change the item's
@@ -432,9 +433,9 @@ public class Astar {
 
                                                         //See if changing the F score bubbles the item up from it's current location in the heap
                                                         m = x;
-                                                        while (m != 1) //While item hasn't bubbled to the top (m=1)	
+                                                        while (m != 1) //While item hasn't bubbled to the top (m=1)
 				{
-                                                            //Check if child is < parent. If so, swap them.	
+                                                            //Check if child is < parent. If so, swap them.
                                                             if (Fcost[openList[m]] < Fcost[openList[m / 2]]) {
                                                                 temp = openList[m / 2];
                                                                 openList[m / 2] = openList[m];
@@ -449,10 +450,10 @@ public class Astar {
                                                 } //For x = 1 To numberOfOpenListItems
                                             }//If tempGcost < Gcost(a,b)
 
-                                        }//else If whichList(a,b) = onOpenList	
+                                        }//else If whichList(a,b) = onOpenList
                                     }//If not cutting a corner
                                 }//If not a wall/obstacle square.
-                            }//If not already on the closed list 
+                            }//If not already on the closed list
                         }//If not off the map
                     }//for (a = parentXval-1; a <= parentXval+1; a++){
                 }//for (b = parentYval-1; b <= parentYval+1; b++){
@@ -460,7 +461,7 @@ public class Astar {
             }//if (numberOfOpenListItems != 0)
 
 
-    //9.If open list is empty then there is no path.	
+    //9.If open list is empty then there is no path.
             else {
                 path = nonexistent; break;
             }
@@ -474,7 +475,7 @@ public class Astar {
         while (e);//Do until path is found or deemed nonexistent
 
 
-        //-------------------------------------------------------------------	
+        //-------------------------------------------------------------------
         //10.Return the path if it exists.
         if (path == found) {
 
@@ -482,7 +483,7 @@ public class Astar {
             //each cell's parent, figure out the length of the path.
             pathX = targetX; pathY = targetY;
             do {
-                //Look up the parent of the current cell.	
+                //Look up the parent of the current cell.
                 tempx = parentX[pathX, pathY];
                 pathY = parentY[pathX, pathY];
                 pathX = tempx;
@@ -506,7 +507,7 @@ public class Astar {
 
             do {
 
-                //d.Look up the parent of the current cell.	
+                //d.Look up the parent of the current cell.
                 tempx = parentX[pathX, pathY];
                 pathY = parentY[pathX, pathY];
                 pathX = tempx;
@@ -516,13 +517,13 @@ public class Astar {
                 mypath[n] = pathX;
                 mypath[n + 1] = pathY;
             }
-            while (pathX != startX || pathY != startY);	//e.If we have reached the starting square, exit the loop.	
+            while (pathX != startX || pathY != startY);	//e.If we have reached the starting square, exit the loop.
 
             return mypath; //a path was generated: return path (charlie!)
         }
     //-------------------------------------------------------------------
 
-    //11.If there is no path to the selected target, 
+    //11.If there is no path to the selected target,
     //return a 0 length path array. (charlie!)
     noPath:
         mypath = new int[0];

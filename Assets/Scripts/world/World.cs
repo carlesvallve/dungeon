@@ -19,7 +19,7 @@ public class World : MonoBehaviour {
 		initTouchControls();
 	}
 
-	
+
 	void Update () {
 		// SPACE -> Generate a new Test Dungeon
 		if (Input.GetButtonDown("Jump")) {
@@ -32,7 +32,7 @@ public class World : MonoBehaviour {
 			// Generate a new Seed
 			dungeon.seed = System.DateTime.Now.Millisecond*1000 + System.DateTime.Now.Minute*100;
 			Random.seed = dungeon.seed;
-			
+
 			// Generate Dungeon
 			Debug.Log ("Dungeon Generation Started");
 			dungeon.GenerateDungeon(dungeon.seed);
@@ -46,7 +46,7 @@ public class World : MonoBehaviour {
 			player = createPlayer(pos);
 
 			// create some monsters
-			monsters = createMonsters(80);
+			monsters = createMonsters(20);
 	}
 
 
@@ -105,14 +105,41 @@ public class World : MonoBehaviour {
 
 
 	private Avatar createAvatar (Vector3 pos, bool useTorch) {
-		// create avatar 
+		// create avatar
 		GameObject obj = (GameObject)Instantiate(Resources.Load("avatar/Prefabs/Avatar"), Vector3.zero, Quaternion.identity);
 		obj.transform.parent = transform;
 
 		Avatar avatar = obj.GetComponent<Avatar>();
-		avatar.init(pos, useTorch);
+		avatar.init(this, pos, useTorch);
 
 		return avatar;
+	}
+
+	// *****************************************************
+	// Visibility
+	// *****************************************************
+
+	public void setVisibility (float posX, float posY, int radius) {
+		bool[,] lit = new bool[Grid.xsize, Grid.ysize];
+
+		ShadowCaster.ComputeFieldOfViewWithShadowCasting(
+			(int)posX, (int)posY, radius,
+			(x1, y1) => !Grid.getWalkable(x1, y1), //world.dungeon.tiles[x1, y1].id == Tile.TILE_WALL, //!Grid.getWalkable(x1, y1), // // !Grid.getWalkable(y1, x1), //map[x1, y1] == wallMap, // 
+			(x2, y2) => { lit[x2, y2] = true; }
+		);
+
+		for (int y = 0; y < dungeon.MAP_HEIGHT; y++) {
+			for (int x = 0; x < dungeon.MAP_WIDTH; x++) {
+				Tile tile = dungeon.tiles[x, y];
+				if (tile.obj) {
+					if (lit[y, x]) {
+						tile.obj.renderer.material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f); //SetActive(lit[x, y]);
+					} else {
+						tile.obj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.5f); //SetActive(lit[x, y]);
+					}
+				}
+			}
+		}
 	}
 
 
