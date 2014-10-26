@@ -124,7 +124,7 @@ public class World : MonoBehaviour {
 
 		ShadowCaster.ComputeFieldOfViewWithShadowCasting(
 			(int)posX, (int)posY, radius,
-			(x1, y1) => !Grid.getWalkable(x1, y1), //world.dungeon.tiles[x1, y1].id == Tile.TILE_WALL, //!Grid.getWalkable(x1, y1), // // !Grid.getWalkable(y1, x1), //map[x1, y1] == wallMap, // 
+			(x1, y1) => !Grid.getWalkable(x1, y1), //world.dungeon.tiles[x1, y1].id == Tile.TILE_WALL,
 			(x2, y2) => { lit[x2, y2] = true; }
 		);
 
@@ -135,7 +135,7 @@ public class World : MonoBehaviour {
 					if (lit[y, x]) {
 						tile.obj.renderer.material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f); //SetActive(lit[x, y]);
 					} else {
-						tile.obj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.5f); //SetActive(lit[x, y]);
+						tile.obj.renderer.material.color = new Color(0.05f, 0.05f, 0.05f, 0.5f); //SetActive(lit[x, y]);
 					}
 				}
 			}

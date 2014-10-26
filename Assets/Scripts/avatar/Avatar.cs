@@ -36,8 +36,8 @@ public class Avatar : MonoBehaviour {
 		spriteRenderer.sprite = (Sprite)spriteTypes[Random.Range(0, spriteTypes.Length - 1)];
 
 		torch = figure.Find("Torch").GetComponent<Light>();
-		torch.intensity = useTorch ? 3.5f : 1.0f;
-		//torch.gameObject.SetActive(useTorch);
+		torch.intensity = useTorch ? 2.5f : 0.5f;
+		torch.gameObject.SetActive(useTorch);
 
 		locateAtPos(pos);
 	}
