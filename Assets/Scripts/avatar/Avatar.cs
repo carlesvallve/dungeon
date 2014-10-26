@@ -31,7 +31,8 @@ public class Avatar : MonoBehaviour {
 		figure = transform.Find("Figure");
 		image = figure.Find("Sprite");
 
-		spriteTypes = Resources.LoadAll("avatar/Textures/beings", typeof(Sprite));
+		//spriteTypes = Resources.LoadAll("avatar/Textures/beings", typeof(Sprite));
+		spriteTypes = Resources.LoadAll("avatar/Textures2/monsters_adom", typeof(Sprite));
 		spriteRenderer = image.GetComponent<SpriteRenderer>();
 		spriteRenderer.sprite = (Sprite)spriteTypes[Random.Range(0, spriteTypes.Length - 1)];
 
